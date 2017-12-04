@@ -197,6 +197,15 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201712010350093_InitialCreate.cs" />
+    <Compile Include="Migrations\201712010350093_InitialCreate.Designer.cs">
+      <DependentUpon>201712010350093_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712011327080_AddComentarioFieldModelProduto.cs" />
+    <Compile Include="Migrations\201712011327080_AddComentarioFieldModelProduto.Designer.cs">
+      <DependentUpon>201712011327080_AddComentarioFieldModelProduto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -282,6 +291,14 @@
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201712010350093_InitialCreate.resx">
+      <DependentUpon>201712010350093_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712011327080_AddComentarioFieldModelProduto.resx">
+      <DependentUpon>201712011327080_AddComentarioFieldModelProduto.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

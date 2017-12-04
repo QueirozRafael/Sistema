@@ -17,14 +17,25 @@ namespace Sistema.Controllers
         {
             var produtos = db.Produto.ToList();
 
-            return View(produtos);
+            if (produtos.Count > 0)
+            {
+                return View(produtos);
+            }
+
+            return HttpNotFound();
         }
 
         // GET: Produto/Details/5
         public ActionResult Details(int id)
         {
             var produto = db.Produto.First(x => x.Id == id);
-            return View(produto);
+
+            if(produto != null)
+            {
+                return View(produto);
+            }
+
+            return HttpNotFound();
         }
 
         // GET: Produto/Create
@@ -58,29 +69,26 @@ namespace Sistema.Controllers
         public ActionResult Edit(int id)
         {
             var produto = db.Produto.First(x => x.Id == id);
-            return View(produto);
+
+            if(produto != null)
+            {
+                return View(produto);
+            }
+
+            return HttpNotFound();
         }
 
         // POST: Produto/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, Produto produto)
+        public ActionResult Edit(Produto produto)
         {
             try
             {
                 // TODO: Add update logic here
                 if (ModelState.IsValid)
                 {
-                    var produtoAlterar = db.Produto.First(x => x.Id == id);
-
-                    if(produtoAlterar != null)
-                    {
-                        produtoAlterar.Descricao = produto.Descricao;
-                        produtoAlterar.Preco = produto.Preco;
-                        produtoAlterar.UltimaCompra = produto.UltimaCompra;
-                        produtoAlterar.Estoque = produto.Estoque;
-                        produtoAlterar.Ativo = produto.Ativo;
-                        db.SaveChanges();
-                    }
+                    db.Entry(produto).State = System.Data.Entity.EntityState.Modified;
+                    db.SaveChanges();
                 }
 
                 return RedirectToAction("Index");
@@ -95,18 +103,25 @@ namespace Sistema.Controllers
         public ActionResult Delete(int id)
         {
             var produto = db.Produto.First(x => x.Id == id);
-            return View(produto);
+
+            if(produto != null)
+            {
+                return View(produto);
+            }
+
+            return HttpNotFound();
         }
 
         // POST: Produto/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, Produto produto)
+        public ActionResult Delete(Produto produto)
         {
             try
             {
                 // TODO: Add delete logic here
-                var produtoDeletar = db.Produto.First(x => x.Id == id);
-                db.Produto.Remove(produtoDeletar);
+                db.Entry(produto).State = System.Data.Entity.EntityState.Deleted;
+                db.SaveChanges();
+                
                 return RedirectToAction("Index");
             }
             catch
