@@ -1,4 +1,4 @@
-﻿@model SistemaLoja.Models.Funcionario
+﻿@model SistemaLoja.Models.Customizar
 
 @{
     ViewBag.Title = "Details";
@@ -7,7 +7,7 @@
 <h2>Details</h2>
 
 <div>
-    <h4>Funcionario</h4>
+    <h4>Customizar</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -35,19 +35,19 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Nascimento)
+            @Html.DisplayNameFor(model => model.Telefone)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Nascimento)
+            @Html.DisplayFor(model => model.Telefone)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Idade)
+            @Html.DisplayNameFor(model => model.Endereco)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Idade)
+            @Html.DisplayFor(model => model.Endereco)
         </dd>
 
         <dt>
@@ -59,32 +59,16 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Admissao)
+            @Html.DisplayNameFor(model => model.Documento)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Admissao)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Salario)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Salario)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Comissao)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Comissao)
+            @Html.DisplayFor(model => model.Documento)
         </dd>
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.FuncionarioId }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.CustomizarId }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

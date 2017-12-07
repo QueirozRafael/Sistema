@@ -17,7 +17,8 @@ namespace SistemaLoja.Controllers
         // GET: Funcionario
         public ActionResult Index()
         {
-            return View(db.Funcionarios.ToList());
+            var funcionarios = db.Funcionario.Include(f => f.TipoDocumento);
+            return View(funcionarios.ToList());
         }
 
         // GET: Funcionario/Details/5
@@ -27,7 +28,7 @@ namespace SistemaLoja.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Funcionario funcionario = db.Funcionarios.Find(id);
+            Funcionario funcionario = db.Funcionario.Find(id);
             if (funcionario == null)
             {
                 return HttpNotFound();
@@ -38,6 +39,7 @@ namespace SistemaLoja.Controllers
         // GET: Funcionario/Create
         public ActionResult Create()
         {
+            ViewBag.TipoDocumentoId = new SelectList(db.TipoDocumento, "TipoDocumentoId", "Descricao");
             return View();
         }
 
@@ -46,15 +48,16 @@ namespace SistemaLoja.Controllers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "FuncionarioId,Nome,Sobrenome,Nacimento,Email,Admissao,Salario,Comissao")] Funcionario funcionario)
+        public ActionResult Create([Bind(Include = "FuncionarioId,Nome,Sobrenome,Nascimento,Email,Admissao,Salario,Comissao,TipoDocumentoId")] Funcionario funcionario)
         {
             if (ModelState.IsValid)
             {
-                db.Funcionarios.Add(funcionario);
+                db.Funcionario.Add(funcionario);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
+            ViewBag.TipoDocumentoId = new SelectList(db.TipoDocumento, "TipoDocumentoId", "Descricao", funcionario.TipoDocumentoId);
             return View(funcionario);
         }
 
@@ -65,11 +68,12 @@ namespace SistemaLoja.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Funcionario funcionario = db.Funcionarios.Find(id);
+            Funcionario funcionario = db.Funcionario.Find(id);
             if (funcionario == null)
             {
                 return HttpNotFound();
             }
+            ViewBag.TipoDocumentoId = new SelectList(db.TipoDocumento, "TipoDocumentoId", "Descricao", funcionario.TipoDocumentoId);
             return View(funcionario);
         }
 
@@ -78,7 +82,7 @@ namespace SistemaLoja.Controllers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "FuncionarioId,Nome,Sobrenome,Nacimento,Email,Admissao,Salario,Comissao")] Funcionario funcionario)
+        public ActionResult Edit([Bind(Include = "FuncionarioId,Nome,Sobrenome,Nascimento,Email,Admissao,Salario,Comissao,TipoDocumentoId")] Funcionario funcionario)
         {
             if (ModelState.IsValid)
             {
@@ -86,6 +90,7 @@ namespace SistemaLoja.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.TipoDocumentoId = new SelectList(db.TipoDocumento, "TipoDocumentoId", "Descricao", funcionario.TipoDocumentoId);
             return View(funcionario);
         }
 
@@ -96,7 +101,7 @@ namespace SistemaLoja.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Funcionario funcionario = db.Funcionarios.Find(id);
+            Funcionario funcionario = db.Funcionario.Find(id);
             if (funcionario == null)
             {
                 return HttpNotFound();
@@ -109,8 +114,8 @@ namespace SistemaLoja.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Funcionario funcionario = db.Funcionarios.Find(id);
-            db.Funcionarios.Remove(funcionario);
+            Funcionario funcionario = db.Funcionario.Find(id);
+            db.Funcionario.Remove(funcionario);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

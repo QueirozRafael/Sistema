@@ -11,10 +11,13 @@ namespace SistemaLoja.Models
     {
         [Key]
         public Int32 TipoDocumentoId { get; set; }
-        [DisplayName("Descrição")]
+
+        [DisplayName("Tipo Documento")]
         [Required]
         public String Descricao { get; set; }
 
         public virtual ICollection<Funcionario> Funcionario { get; set; }
+
+        public virtual ICollection<Customizar> Customizacao { get; set; }
     }
 }

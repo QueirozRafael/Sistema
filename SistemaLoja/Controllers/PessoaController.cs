@@ -10,114 +10,117 @@ using SistemaLoja.Models;
 
 namespace SistemaLoja.Controllers
 {
-    public class TipoDocumentoController : Controller
+    public class PessoaController : Controller
     {
         private SistemaLojaContext db = new SistemaLojaContext();
 
-        // GET: TipoDocumento
+        // GET: Pessoa
         public ActionResult Index()
         {
-            return View(db.TipoDocumento.ToList());
+            var customizars = db.Customizars.Include(c => c.TipoDocumento);
+            return View(customizars.ToList());
         }
 
-        // GET: TipoDocumento/Details/5
+        // GET: Pessoa/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            TipoDocumento tipoDocumento = db.TipoDocumento.Find(id);
-            if (tipoDocumento == null)
+            Customizar customizar = db.Customizars.Find(id);
+            if (customizar == null)
             {
                 return HttpNotFound();
             }
-            return View(tipoDocumento);
+            return View(customizar);
         }
 
-        // GET: TipoDocumento/Create
+        // GET: Pessoa/Create
         public ActionResult Create()
         {
+            var list = new List<TipoDocumento>();
+            list.Add(new TipoDocumento { Descricao = "Selecione um tipo de documento" });
+            list.AddRange(db.TipoDocumento.OrderBy(x => x.Descricao));
+
+            ViewBag.TipoDocumentoId = new SelectList(list, "TipoDocumentoId", "Descricao");
             return View();
         }
 
-        // POST: TipoDocumento/Create
+        // POST: Pessoa/Create
         // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "TipoDocumentoId,Descricao")] TipoDocumento tipoDocumento)
+        public ActionResult Create([Bind(Include = "CustomizarId,Nome,Sobrenome,Telefone,Endereco,Email,Documento,TipoDocumentoId")] Customizar customizar)
         {
             if (ModelState.IsValid)
             {
-                db.TipoDocumento.Add(tipoDocumento);
+                db.Customizars.Add(customizar);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(tipoDocumento);
+            ViewBag.TipoDocumentoId = new SelectList(db.TipoDocumento, "TipoDocumentoId", "Descricao", customizar.TipoDocumentoId);
+            return View(customizar);
         }
 
-        // GET: TipoDocumento/Edit/5
+        // GET: Pessoa/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            TipoDocumento tipoDocumento = db.TipoDocumento.Find(id);
-            if (tipoDocumento == null)
+            Customizar customizar = db.Customizars.Find(id);
+            if (customizar == null)
             {
                 return HttpNotFound();
             }
-            return View(tipoDocumento);
+            ViewBag.TipoDocumentoId = new SelectList(db.TipoDocumento.OrderBy(x => x.Descricao), "TipoDocumentoId", "Descricao", customizar.TipoDocumentoId);
+            return View(customizar);
         }
 
-        // POST: TipoDocumento/Edit/5
+        // POST: Pessoa/Edit/5
         // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "TipoDocumentoId,Descricao")] TipoDocumento tipoDocumento)
+        public ActionResult Edit([Bind(Include = "CustomizarId,Nome,Sobrenome,Telefone,Endereco,Email,Documento,TipoDocumentoId")] Customizar customizar)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(tipoDocumento).State = EntityState.Modified;
+                db.Entry(customizar).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(tipoDocumento);
+            ViewBag.TipoDocumentoId = new SelectList(db.TipoDocumento, "TipoDocumentoId", "Descricao", customizar.TipoDocumentoId);
+            return View(customizar);
         }
 
-        // GET: TipoDocumento/Delete/5
+        // GET: Pessoa/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            TipoDocumento tipoDocumento = db.TipoDocumento.Find(id);
-            if (tipoDocumento == null)
+            Customizar customizar = db.Customizars.Find(id);
+            if (customizar == null)
             {
                 return HttpNotFound();
             }
-            return View(tipoDocumento);
+            return View(customizar);
         }
 
-        // POST: TipoDocumento/Delete/5
+        // POST: Pessoa/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            try
-            {
-                TipoDocumento tipoDocumento = db.TipoDocumento.Find(id);
-                db.TipoDocumento.Remove(tipoDocumento);
-                db.SaveChanges();
-            }
-            catch
-            {}
-              
+            Customizar customizar = db.Customizars.Find(id);
+            db.Customizars.Remove(customizar);
+            db.SaveChanges();
             return RedirectToAction("Index");
         }
 

@@ -6,10 +6,8 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using Sistema.Models;
-using SistemaLoja.Models;
 
-namespace SistemaLoja.Controllers
+namespace SistemaLoja.Models
 {
     public class ProdutoController : Controller
     {
@@ -47,7 +45,7 @@ namespace SistemaLoja.Controllers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Descricao,Preco,UltimaCompra,Estoque,Ativo,Comentario")] Produto produto)
+        public ActionResult Create([Bind(Include = "ProdutoId,Descricao,Preco,UltimaCompra,Estoque,Ativo,Comentario")] Produto produto)
         {
             if (ModelState.IsValid)
             {
@@ -79,7 +77,7 @@ namespace SistemaLoja.Controllers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Descricao,Preco,UltimaCompra,Estoque,Ativo,Comentario")] Produto produto)
+        public ActionResult Edit([Bind(Include = "ProdutoId,Descricao,Preco,UltimaCompra,Estoque,Ativo,Comentario")] Produto produto)
         {
             if (ModelState.IsValid)
             {

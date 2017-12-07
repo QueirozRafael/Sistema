@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Web;
+﻿using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
 
 namespace SistemaLoja.Models
 {
@@ -19,10 +16,25 @@ namespace SistemaLoja.Models
         {
         }
 
-        public System.Data.Entity.DbSet<Sistema.Models.Produto> Produto { get; set; }
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+        }
 
-        public System.Data.Entity.DbSet<SistemaLoja.Models.TipoDocumento> TipoDocumentoes { get; set; }
+        public System.Data.Entity.DbSet<SistemaLoja.Models.Produto> Produto { get; set; }
 
-        public System.Data.Entity.DbSet<SistemaLoja.Models.Funcionario> Funcionarios { get; set; }
+        public System.Data.Entity.DbSet<SistemaLoja.Models.TipoDocumento> TipoDocumento { get; set; }
+
+        public System.Data.Entity.DbSet<SistemaLoja.Models.Funcionario> Funcionario { get; set; }
+
+        public System.Data.Entity.DbSet<SistemaLoja.Models.FornecedorProduto> FornecedorProduto { get; set; }
+
+        public System.Data.Entity.DbSet<SistemaLoja.Models.Fornecedor> Fornecedors { get; set; }
+
+        public System.Data.Entity.DbSet<SistemaLoja.Models.Customizar> Customizars { get; set; }
+
+        public System.Data.Entity.DbSet<SistemaLoja.Models.Ordem> Ordem { get; set; }
+
+        public System.Data.Entity.DbSet<SistemaLoja.Models.OrdemDetalhe> OrdemDetalhe { get; set; }
     }
 }

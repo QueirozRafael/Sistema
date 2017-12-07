@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SistemaLoja.Models.Funcionario>
+﻿@model IEnumerable<SistemaLoja.Models.Customizar>
 
 @{
     ViewBag.Title = "Index";
@@ -21,22 +21,16 @@
             @Html.DisplayNameFor(model => model.Sobrenome)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Nascimento)
+            @Html.DisplayNameFor(model => model.Telefone)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Idade)
+            @Html.DisplayNameFor(model => model.Endereco)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Email)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Admissao)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Salario)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Comissao)
+            @Html.DisplayNameFor(model => model.Documento)
         </th>
         <th></th>
     </tr>
@@ -53,27 +47,21 @@
             @Html.DisplayFor(modelItem => item.Sobrenome)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Nascimento)
+            @Html.DisplayFor(modelItem => item.Telefone)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Idade)
+            @Html.DisplayFor(modelItem => item.Endereco)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Email)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Admissao)
+            @Html.DisplayFor(modelItem => item.Documento)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Salario)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Comissao)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.FuncionarioId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.FuncionarioId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.FuncionarioId })
+            @Html.ActionLink("Edit", "Edit", new { id=item.CustomizarId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.CustomizarId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.CustomizarId })
         </td>
     </tr>
 }

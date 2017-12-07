@@ -1,0 +1,78 @@
+﻿@model SistemaLoja.ViewsModel.OrdemViewModels
+
+@{
+    ViewBag.Title = "Nova Ordem";
+}
+
+<h2>Nova Ordem</h2>
+<h5>@ViewBag.Error</h5>
+
+@using (Html.BeginForm("NovaOrdem", "Ordem", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @if (Model != null && Model.ProdutosOrdem.Count > 0)
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.Customizar.CustomizarId, "Cliente", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("Clientes", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Customizar.CustomizarId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        }
+        <div class="form-group">
+            @Html.ActionLink("Adicionar Produto", "AdicionarProduto", null, new { @class = "btn btn-primary" }) |
+            <input type="submit" value="Criar Ordem" class="btn btn-success" />
+        </div>
+
+    </div>
+}
+
+@if (Model != null && Model.ProdutosOrdem.Count > 0)
+{
+    <h4>Detalhes do Pedido</h4>
+    <hr />
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ProdutoOrdem.Descricao)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProdutoOrdem.Preco)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProdutoOrdem.Quantidade)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProdutoOrdem.Valor)
+            </th>
+            <th></th>
+        </tr>
+
+        @for (var i = 0; i < Model.ProdutosOrdem.Count; i++)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.ProdutosOrdem[i].Descricao)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.ProdutosOrdem[i].Preco)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.ProdutosOrdem[i].Quantidade)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.ProdutosOrdem[i].Valor)
+                </td>
+                <td>
+                    @Html.ActionLink("Editar", "Edit", new { id = Model.ProdutosOrdem[i].ProdutoId }) |
+                    @Html.ActionLink("Excluir", "Delete", new { id = Model.ProdutosOrdem[i].ProdutoId })
+                </td>
+            </tr>
+        }
+
+    </table>
+}

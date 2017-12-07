@@ -6,118 +6,111 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using SistemaLoja.Models;
 
-namespace SistemaLoja.Controllers
+namespace SistemaLoja.Models
 {
-    public class TipoDocumentoController : Controller
+    public class FornecedorController : Controller
     {
         private SistemaLojaContext db = new SistemaLojaContext();
 
-        // GET: TipoDocumento
+        // GET: Fornecedor
         public ActionResult Index()
         {
-            return View(db.TipoDocumento.ToList());
+            return View(db.Fornecedors.ToList());
         }
 
-        // GET: TipoDocumento/Details/5
+        // GET: Fornecedor/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            TipoDocumento tipoDocumento = db.TipoDocumento.Find(id);
-            if (tipoDocumento == null)
+            Fornecedor fornecedor = db.Fornecedors.Find(id);
+            if (fornecedor == null)
             {
                 return HttpNotFound();
             }
-            return View(tipoDocumento);
+            return View(fornecedor);
         }
 
-        // GET: TipoDocumento/Create
+        // GET: Fornecedor/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: TipoDocumento/Create
+        // POST: Fornecedor/Create
         // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "TipoDocumentoId,Descricao")] TipoDocumento tipoDocumento)
+        public ActionResult Create([Bind(Include = "FornecedorId,Nome,Sobrenome,Telefone,Endereco,Email")] Fornecedor fornecedor)
         {
             if (ModelState.IsValid)
             {
-                db.TipoDocumento.Add(tipoDocumento);
+                db.Fornecedors.Add(fornecedor);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(tipoDocumento);
+            return View(fornecedor);
         }
 
-        // GET: TipoDocumento/Edit/5
+        // GET: Fornecedor/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            TipoDocumento tipoDocumento = db.TipoDocumento.Find(id);
-            if (tipoDocumento == null)
+            Fornecedor fornecedor = db.Fornecedors.Find(id);
+            if (fornecedor == null)
             {
                 return HttpNotFound();
             }
-            return View(tipoDocumento);
+            return View(fornecedor);
         }
 
-        // POST: TipoDocumento/Edit/5
+        // POST: Fornecedor/Edit/5
         // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "TipoDocumentoId,Descricao")] TipoDocumento tipoDocumento)
+        public ActionResult Edit([Bind(Include = "FornecedorId,Nome,Sobrenome,Telefone,Endereco,Email")] Fornecedor fornecedor)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(tipoDocumento).State = EntityState.Modified;
+                db.Entry(fornecedor).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(tipoDocumento);
+            return View(fornecedor);
         }
 
-        // GET: TipoDocumento/Delete/5
+        // GET: Fornecedor/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            TipoDocumento tipoDocumento = db.TipoDocumento.Find(id);
-            if (tipoDocumento == null)
+            Fornecedor fornecedor = db.Fornecedors.Find(id);
+            if (fornecedor == null)
             {
                 return HttpNotFound();
             }
-            return View(tipoDocumento);
+            return View(fornecedor);
         }
 
-        // POST: TipoDocumento/Delete/5
+        // POST: Fornecedor/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            try
-            {
-                TipoDocumento tipoDocumento = db.TipoDocumento.Find(id);
-                db.TipoDocumento.Remove(tipoDocumento);
-                db.SaveChanges();
-            }
-            catch
-            {}
-              
+            Fornecedor fornecedor = db.Fornecedors.Find(id);
+            db.Fornecedors.Remove(fornecedor);
+            db.SaveChanges();
             return RedirectToAction("Index");
         }
 
